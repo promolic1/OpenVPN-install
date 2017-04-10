@@ -421,7 +421,8 @@ WantedBy=multi-user.target" > /etc/systemd/system/rc-local.service
 	elif [[ "$PROTOCOL" = 'TCP' ]]; then
 		echo "proto tcp" >> /etc/openvpn/server.conf
 	fi
-	echo "dev tun
+	echo "dev tap
+client-to-client
 user nobody
 group $NOGROUP
 persist-key
@@ -573,7 +574,7 @@ verb 3" >> /etc/openvpn/server.conf
 		echo "proto tcp-client" >> /etc/openvpn/client-template.txt
 	fi
 	echo "remote $IP $PORT
-dev tun
+dev tap
 resolv-retry infinite
 nobind
 persist-key
@@ -584,7 +585,7 @@ $CIPHER
 tls-client
 tls-version-min 1.2
 tls-cipher TLS-DHE-RSA-WITH-AES-128-GCM-SHA256
-setenv opt block-outside-dns
+#setenv opt block-outside-dns
 verb 3" >> /etc/openvpn/client-template.txt
 
 	# Generate the custom client.ovpn
