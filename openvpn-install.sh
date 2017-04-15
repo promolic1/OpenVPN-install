@@ -194,16 +194,20 @@ else
 	echo "I need to know the IPv4 address of the network interface you want OpenVPN listening to."
 	echo "If your server is running behind a NAT, (e.g. LowEndSpirit, Scaleway) leave the IP address as it is. (local/private IP)"
 	echo "Otherwise, it should be your public IPv4 address."
-	read -p "IP address: " -e -i $IP IP
+	#read -p "IP address: " -e -i $IP IP
 	echo ""
 	echo "What port do you want for OpenVPN?"
-	read -p "Port: " -e -i 1194 PORT
+	#read -p "Port: " -e -i 1194 PORT
+	export PORT=1194
+	echo $PORT
 	echo ""
 	echo "What protocol do you want for OpenVPN?"
 	echo "Unless UDP is blocked, you should not use TCP (unnecessarily slower)"
-	while [[ $PROTOCOL != "UDP" && $PROTOCOL != "TCP" ]]; do
-		read -p "Protocol [UDP/TCP]: " -e -i UDP PROTOCOL
-	done
+	#while [[ $PROTOCOL != "UDP" && $PROTOCOL != "TCP" ]]; do
+	#	read -p "Protocol [UDP/TCP]: " -e -i UDP PROTOCOL
+	#done
+	export PROTOCOL=UDP
+	echo $PROTOCOL
 	echo ""
 	echo "What DNS do you want to use with the VPN?"
 	echo "   1) Current system resolvers (/etc/resolv.conf)"
@@ -211,9 +215,10 @@ else
 	echo "   3) DNS.WATCH (Germany)"
 	echo "   4) OpenDNS (Anycast: worldwide)"
 	echo "   5) Google (Anycast: worldwide)"
-	while [[ $DNS != "1" && $DNS != "2" && $DNS != "3" && $DNS != "4" && $DNS != "5" ]]; do
-		read -p "DNS [1-5]: " -e -i 2 DNS
-	done
+	#while [[ $DNS != "1" && $DNS != "2" && $DNS != "3" && $DNS != "4" && $DNS != "5" ]]; do
+	#	read -p "DNS [1-5]: " -e -i 2 DNS
+	#done
+	export DNS=5
 	echo ""
 	echo "See https://github.com/Angristan/OpenVPN-install#encryption to learn more about "
 	echo "the encryption in OpenVPN and the choices I made in this script."
@@ -230,9 +235,10 @@ else
 	echo "   5) CAMELLIA-192-CBC"
 	echo "   6) CAMELLIA-256-CBC"
 	echo "   7) SEED-CBC"
-	while [[ $CIPHER != "1" && $CIPHER != "2" && $CIPHER != "3" && $CIPHER != "4" && $CIPHER != "5" && $CIPHER != "6" && $CIPHER != "7" ]]; do
-		read -p "Cipher [1-7]: " -e -i 1 CIPHER
-	done
+	#while [[ $CIPHER != "1" && $CIPHER != "2" && $CIPHER != "3" && $CIPHER != "4" && $CIPHER != "5" && $CIPHER != "6" && $CIPHER != "7" ]]; do
+	#	read -p "Cipher [1-7]: " -e -i 1 CIPHER
+	#done
+	export CIPHER=1
 	case $CIPHER in
 		1)
 		CIPHER="cipher AES-128-CBC"
@@ -261,9 +267,10 @@ else
 	echo "   1) 2048 bits (fastest)"
 	echo "   2) 3072 bits (recommended, best compromise)"
 	echo "   3) 4096 bits (most secure)"
-	while [[ $DH_KEY_SIZE != "1" && $DH_KEY_SIZE != "2" && $DH_KEY_SIZE != "3" ]]; do
-		read -p "DH key size [1-3]: " -e -i 2 DH_KEY_SIZE
-	done
+	#while [[ $DH_KEY_SIZE != "1" && $DH_KEY_SIZE != "2" && $DH_KEY_SIZE != "3" ]]; do
+	#	read -p "DH key size [1-3]: " -e -i 2 DH_KEY_SIZE
+	#done
+	export DH_KEY_SIZE=1
 	case $DH_KEY_SIZE in
 		1)
 		DH_KEY_SIZE="2048"
@@ -280,9 +287,10 @@ else
 	echo "   1) 2048 bits (fastest)"
 	echo "   2) 3072 bits (recommended, best compromise)"
 	echo "   3) 4096 bits (most secure)"
-	while [[ $RSA_KEY_SIZE != "1" && $RSA_KEY_SIZE != "2" && $RSA_KEY_SIZE != "3" ]]; do
-		read -p "DH key size [1-3]: " -e -i 2 RSA_KEY_SIZE
-	done
+	#while [[ $RSA_KEY_SIZE != "1" && $RSA_KEY_SIZE != "2" && $RSA_KEY_SIZE != "3" ]]; do
+	#	read -p "DH key size [1-3]: " -e -i 2 RSA_KEY_SIZE
+	#done
+	export RSA_KEY_SIZE=1
 	case $RSA_KEY_SIZE in
 		1)
 		RSA_KEY_SIZE="2048"
